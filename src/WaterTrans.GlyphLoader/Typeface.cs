@@ -324,6 +324,18 @@ namespace WaterTrans.GlyphLoader
         }
 
         /// <summary>
+        /// Gets the NAME feature list.
+        /// </summary>
+        public IDictionary<ushort[], string> NAMEFeatures
+        {
+            get
+            {
+                return _tableOfNAME.NameRecords.ToDictionary(nameRecord => new[] {nameRecord.PlatformID, nameRecord.EncodingID, nameRecord.LanguageID, nameRecord.NameID},
+                    nameRecord => nameRecord.NameString);
+            }
+        }
+
+        /// <summary>
         /// Gets sfnt Major Version.
         /// </summary>
         internal ushort SfntVersionMajor { get; private set; }
