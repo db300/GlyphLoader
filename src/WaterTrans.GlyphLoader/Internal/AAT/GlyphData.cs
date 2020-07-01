@@ -50,6 +50,7 @@ namespace WaterTrans.GlyphLoader.Internal.AAT
             XMax = glyphData.XMax;
             YMax = glyphData.YMax;
             EndPtsOfContours.AddRange(glyphData.EndPtsOfContours);
+            HasInstructions = glyphData.HasInstructions;
             InstructionLength = glyphData.InstructionLength;
             Instructions.AddRange(glyphData.Instructions);
             NumberOfCoordinates = glyphData.NumberOfCoordinates;
@@ -180,7 +181,7 @@ namespace WaterTrans.GlyphLoader.Internal.AAT
                 }
                 if ((flags & WE_HAVE_INSTRUCTIONS) > 0)
                 {
-                    // We have instructions
+                    HasInstructions = true;
                     InstructionLength = reader.ReadUInt16();
 
                     for (int i = 0; i < InstructionLength; i++)
@@ -195,31 +196,34 @@ namespace WaterTrans.GlyphLoader.Internal.AAT
         public ushort GlyphIndex { get; }
 
         /// <summary>Gets a number of contours. If the number of contours is greater than or equal to zero, this is a simple glyph. If negative, this is a composite glyph — the value -1 should be used for composite glyphs.</summary>
-        public short NumberOfContours { get; private set; }
+        public short NumberOfContours { get; internal set; }
 
         /// <summary>Gets a minimum x for coordinate data.</summary>
-        public short XMin { get; private set; }
+        public short XMin { get; internal set; }
 
         /// <summary>Gets a minimum y for coordinate data.</summary>
-        public short YMin { get; private set; }
+        public short YMin { get; internal set; }
 
         /// <summary>Gets a maximum x for coordinate data.</summary>
-        public short XMax { get; private set; }
+        public short XMax { get; internal set; }
 
         /// <summary>Gets a maximum y for coordinate data.</summary>
-        public short YMax { get; private set; }
+        public short YMax { get; internal set; }
 
         /// <summary>Gets an array of point indices for the last point of each contour, in increasing numeric order.</summary>
         public List<ushort> EndPtsOfContours { get; } = new List<ushort>();
 
+        /// <summary>Gets a value that indicates whether this glyph has instructions.</summary>
+        public bool HasInstructions { get; internal set; }
+
         /// <summary>Gets the total number of bytes for instructions. If instructionLength is zero, no instructions are present for this glyph, and this field is followed directly by the flags field.</summary>
-        public ushort InstructionLength { get; }
+        public ushort InstructionLength { get; internal set; }
 
         /// <summary>Gets an array of instruction byte code for the glyph.</summary>
         public List<byte> Instructions { get; } = new List<byte>();
 
         /// <summary>Gets a number of coordinates.</summary>
-        public ushort NumberOfCoordinates { get; private set; }
+        public ushort NumberOfCoordinates { get; internal set; }
 
         /// <summary>Gets an array of flag elements.</summary>
         public List<byte> Flags { get; } = new List<byte>();

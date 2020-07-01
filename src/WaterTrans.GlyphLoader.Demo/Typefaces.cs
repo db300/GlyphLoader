@@ -39,6 +39,8 @@ namespace WaterTrans.GlyphLoader.Demo
             "Font Awesome 5 Free-Solid-900.otf",
             "Font Awesome 5 Free-Regular-400.otf",
             "Font Awesome 5 Brands-Regular-400.otf",
+            "Roboto-Regular.woff2",
+            "RobotoMono-Regular.woff2",
         };
 
         public bool ContainsKey(string key)
