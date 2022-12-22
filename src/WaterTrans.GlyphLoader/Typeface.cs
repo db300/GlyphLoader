@@ -537,8 +537,7 @@ namespace WaterTrans.GlyphLoader
         {
             get
             {
-                return _tableOfNAME.NameRecords.ToDictionary(nameRecord => new[] {nameRecord.PlatformID, nameRecord.EncodingID, nameRecord.LanguageID, nameRecord.NameID},
-                    nameRecord => nameRecord.NameString);
+                return _tableOfNAME.NameRecords.ToDictionary(nameRecord => new[] { nameRecord.PlatformID, nameRecord.EncodingID, nameRecord.LanguageID, nameRecord.NameID }, nameRecord => nameRecord.NameString);
             }
         }
 
