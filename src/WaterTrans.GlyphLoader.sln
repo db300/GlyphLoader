@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29911.84
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterTrans.GlyphLoader", "WaterTrans.GlyphLoader\WaterTrans.GlyphLoader.csproj", "{1B3F5E68-AE35-4AB7-B383-843E8FA37F8B}"
 EndProject
@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterTrans.GlyphLoader.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterTrans.GlyphLoader.TestFonts", "WaterTrans.GlyphLoader.TestFonts\WaterTrans.GlyphLoader.TestFonts.csproj", "{1888CE7A-3201-4333-A273-129A893C5AD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterTrans.GlyphLoader.Demo", "WaterTrans.GlyphLoader.Demo\WaterTrans.GlyphLoader.Demo.csproj", "{2F0EDD3B-9EF0-4EB2-B6E5-53FFD41C7D9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterTrans.GlyphLoader.Demo", "WaterTrans.GlyphLoader.Demo\WaterTrans.GlyphLoader.Demo.csproj", "{2F0EDD3B-9EF0-4EB2-B6E5-53FFD41C7D9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTestConsole", "MyTestConsole\MyTestConsole.csproj", "{942367FA-7197-4AE3-B894-C14AFB99796F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{2F0EDD3B-9EF0-4EB2-B6E5-53FFD41C7D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F0EDD3B-9EF0-4EB2-B6E5-53FFD41C7D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F0EDD3B-9EF0-4EB2-B6E5-53FFD41C7D9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{942367FA-7197-4AE3-B894-C14AFB99796F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{942367FA-7197-4AE3-B894-C14AFB99796F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{942367FA-7197-4AE3-B894-C14AFB99796F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{942367FA-7197-4AE3-B894-C14AFB99796F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
