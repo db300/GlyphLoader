@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WaterTrans.GlyphLoader\WaterTrans.GlyphLoader.csproj" />
+    <ProjectReference Include="..\GlyphLoader.RenderLibrary\GlyphLoader.RenderLibrary.csproj" />
   </ItemGroup>
 
 </Project>

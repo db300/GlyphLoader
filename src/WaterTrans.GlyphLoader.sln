@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterTrans.GlyphLoader.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterTrans.GlyphLoader.Demo", "WaterTrans.GlyphLoader.Demo\WaterTrans.GlyphLoader.Demo.csproj", "{2F0EDD3B-9EF0-4EB2-B6E5-53FFD41C7D9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTestConsole", "MyTestConsole\MyTestConsole.csproj", "{942367FA-7197-4AE3-B894-C14AFB99796F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyTestConsole", "MyTestConsole\MyTestConsole.csproj", "{942367FA-7197-4AE3-B894-C14AFB99796F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlyphLoader.RenderLibrary", "GlyphLoader.RenderLibrary\GlyphLoader.RenderLibrary.csproj", "{A3CF53C8-B68D-484E-A0BF-B661C0AE89AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{942367FA-7197-4AE3-B894-C14AFB99796F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{942367FA-7197-4AE3-B894-C14AFB99796F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{942367FA-7197-4AE3-B894-C14AFB99796F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3CF53C8-B68D-484E-A0BF-B661C0AE89AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3CF53C8-B68D-484E-A0BF-B661C0AE89AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3CF53C8-B68D-484E-A0BF-B661C0AE89AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3CF53C8-B68D-484E-A0BF-B661C0AE89AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>ColdDaddy</Authors>
+    <Copyright>Copyright © ColdDaddy 2022</Copyright>
+    <RepositoryUrl>https://github.com/db300/GlyphLoader</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WaterTrans.GlyphLoader\WaterTrans.GlyphLoader.csproj" />
+  </ItemGroup>
+
+</Project>
