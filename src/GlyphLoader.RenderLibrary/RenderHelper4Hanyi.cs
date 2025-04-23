@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using WaterTrans.GlyphLoader;
 
@@ -71,7 +72,9 @@ namespace GlyphLoader.RenderLibrary
             }
 
             sb.AppendLine("</svg>");
+#if DEBUG
             System.Diagnostics.Debug.WriteLine(sb);
+#endif
             return sb.ToString();
         }
 
@@ -87,6 +90,77 @@ namespace GlyphLoader.RenderLibrary
         private const int spaceX = 5;
         private const int spaceY = 1;
         private const double em = 30;
+        private const string color = "white";//black
+    }
+
+    public static class RenderHelper4HanyiLatin
+    {
+        public static string HanyiWebsiteFontDetailBanner(string fileName)
+        {
+            Typeface tf;
+            using (var fs = File.OpenRead(fileName))
+            {
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                tf = new Typeface(fs);
+            }
+
+            //计算整图文件的宽高
+            var width = 0D;
+            for (var i = 0; i < ss.Length; i++)
+            {
+                width = Math.Max(width, ss[i].Length * ems[i]);
+            }
+            var height = ss.Length * spaceY;
+            for (var i = 0; i < ems.Length; i++)
+            {
+                height += ems[i];
+            }
+
+            var sb = new StringBuilder();
+            sb.AppendLine($"<svg width='{width}' height='{height}' viewBox='0 0 {width} {height}' xmlns='http://www.w3.org/2000/svg' version='1.1'>");
+
+            var y = 0F;
+            for (var i = 0; i < ss.Length; i++)
+            {
+                var em = ems[i];
+                var s = ss[i];
+                //计算当前文本行宽度
+                var width0 = 0D;
+                foreach (var c in s)
+                {
+                    var glyphIndex = tf.CharacterToGlyphMap[c];
+                    var advanceWidth = tf.AdvanceWidths[glyphIndex] * em;
+                    width0 += advanceWidth;
+                }
+                var x = (width - width0) / 2;
+                foreach (var c in s)
+                {
+                    var glyphIndex = tf.CharacterToGlyphMap[c];
+                    var geometry = tf.GetGlyphOutline(glyphIndex, em);
+                    var advanceWidth = tf.AdvanceWidths[glyphIndex] * em;
+                    var baseline = tf.Baseline * em;
+                    var mini = geometry.Figures.ToString(x, y + baseline);
+                    sb.AppendLine($"<path d='{mini}' fill='{color}' stroke='{color}' stroke-width='0' />");
+                    x += advanceWidth;
+                }
+                y += em + spaceY;
+            }
+
+            sb.AppendLine("</svg>");
+#if DEBUG
+            System.Diagnostics.Debug.WriteLine(sb);
+#endif
+            return sb.ToString();
+        }
+
+        private static readonly string[] ss = new[]
+        {
+            "ABCDEFG",
+            "abcdefghijklmnopqrstuvwxyz",
+            "0123456789"
+        };
+        private static readonly int[] ems = new[] { 50, 20, 30 };
+        private const int spaceY = 5;
         private const string color = "white";//black
     }
 }
