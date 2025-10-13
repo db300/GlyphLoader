@@ -119,7 +119,7 @@ namespace GlyphLoader.RenderLibrary
             var sb = new StringBuilder();
             sb.AppendLine($"<svg width='{width}' height='{height}' viewBox='0 0 {width} {height}' xmlns='http://www.w3.org/2000/svg' version='1.1'>");
 
-            var y = 0F;
+            var y = 15F;
             for (var i = 0; i < ss.Length; i++)
             {
                 var em = ems[i];
@@ -160,7 +160,7 @@ namespace GlyphLoader.RenderLibrary
             "0123456789"
         };
         private static readonly int[] ems = new[] { 50, 20, 30 };
-        private const int spaceY = 5;
+        private const int spaceY = 15;
         private const string color = "white";//black
     }
 }
