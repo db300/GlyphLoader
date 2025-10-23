@@ -90,7 +90,8 @@ namespace GlyphLoader.RenderLibrary
         private const int spaceX = 5;
         private const int spaceY = 1;
         private const double em = 30;
-        private const string color = "white";//black
+        private const string color = "white";//正式用
+        //private const string color = "black";//测试用
     }
 
     public static class RenderHelper4HanyiLatin

@@ -242,7 +242,8 @@ namespace WaterTrans.GlyphLoader.Internal.AAT
         /// </summary>
         /// <param name="scale">The scale.</param>
         /// <returns>Returns the <see cref="PathGeometry"/>.</returns>
-        public PathGeometry ConvertToPathGeometry(double scale)
+        [Obsolete("当前方法在遇到轮廓起点为线外点的时候，会出现渲染bug，因此使用下方ConvertToPathGeometry方法替代，如果闭合轮廓的起点（第一个点）是线外点（off-curve），则将起点调整为该轮廓中最近的线上点（on-curve），优先选择后一个，若后一个没有则选择前一个。")]
+        public PathGeometry ConvertToPathGeometry1(double scale)
         {
             var result = new PathGeometry();
             result.FillRule = FillRule.Nonzero;
@@ -289,6 +290,99 @@ namespace WaterTrans.GlyphLoader.Internal.AAT
                     currentPoint = nextPoint;
                     nextCurve = (flags[nextIndex] & ON_CURVE_POINT) > 0;
                     nextPoint = new Point(xCoordinates[nextIndex], -yCoordinates[nextIndex]).Scale(scale);
+
+                    if (currentCurve)
+                    {
+                        figure.Segments.Add(new LineSegment(currentPoint, true));
+                    }
+                    else
+                    {
+                        if (!nextCurve)
+                        {
+                            Point middlePoint = new Point((currentPoint.X + nextPoint.X) * 0.5, (currentPoint.Y + nextPoint.Y) * 0.5);
+                            figure.Segments.Add(new QuadraticBezierSegment(currentPoint, middlePoint, true));
+                        }
+                        else
+                        {
+                            figure.Segments.Add(new QuadraticBezierSegment(currentPoint, nextPoint, true));
+                        }
+                    }
+                }
+
+                result.Figures.Add(figure);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Converts to glyph data to <see cref="PathGeometry"/>.
+        /// </summary>
+        /// <param name="scale">The scale.</param>
+        /// <returns>Returns the <see cref="PathGeometry"/>.</returns>
+        public PathGeometry ConvertToPathGeometry(double scale)
+        {
+            var result = new PathGeometry();
+            result.FillRule = FillRule.Nonzero;
+
+            for (int i = 0; i < NumberOfContours; i++)
+            {
+                var flags = GetContoursRange<byte>(Flags, i);
+                var xCoordinates = GetContoursRange<short>(XCoordinates, i);
+                var yCoordinates = GetContoursRange<short>(YCoordinates, i);
+
+                int startIndex = 0;
+                // 如果起点是线外点，寻找最近的线上点
+                if ((flags[0] & ON_CURVE_POINT) == 0)
+                {
+                    // 优先向后查找
+                    int found = -1;
+                    for (int j = 1; j < flags.Count; j++)
+                    {
+                        if ((flags[j] & ON_CURVE_POINT) != 0)
+                        {
+                            found = j;
+                            break;
+                        }
+                    }
+                    // 如果后面没有，向前查找
+                    if (found == -1)
+                    {
+                        for (int j = flags.Count - 1; j > 0; j--)
+                        {
+                            if ((flags[j] & ON_CURVE_POINT) != 0)
+                            {
+                                found = j;
+                                break;
+                            }
+                        }
+                    }
+                    if (found != -1)
+                        startIndex = found;
+                }
+
+                var figure = new PathFigure();
+                figure.IsClosed = true;
+
+                // 重新计算起点
+                Point startPoint = new Point(xCoordinates[startIndex], -yCoordinates[startIndex]).Scale(scale);
+                figure.StartPoint = startPoint;
+
+                // 构建段
+                bool currentCurve;
+                bool nextCurve = (flags[startIndex] & ON_CURVE_POINT) != 0;
+                Point currentPoint;
+                Point nextPoint = new Point(xCoordinates[startIndex], -yCoordinates[startIndex]).Scale(scale);
+
+                for (int j = 0; j < flags.Count; j++)
+                {
+                    int idx = (startIndex + j) % flags.Count;
+                    int nextIdx = (startIndex + j + 1) % flags.Count;
+
+                    currentCurve = (flags[idx] & ON_CURVE_POINT) != 0;
+                    currentPoint = new Point(xCoordinates[idx], -yCoordinates[idx]).Scale(scale);
+                    nextCurve = (flags[nextIdx] & ON_CURVE_POINT) != 0;
+                    nextPoint = new Point(xCoordinates[nextIdx], -yCoordinates[nextIdx]).Scale(scale);
 
                     if (currentCurve)
                     {
