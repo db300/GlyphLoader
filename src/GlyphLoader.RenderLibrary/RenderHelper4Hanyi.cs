@@ -50,13 +50,20 @@ namespace GlyphLoader.RenderLibrary
             var y = row * (em + spaceY);
             foreach (var c in s1)
             {
-                var glyphIndex = tf.CharacterToGlyphMap[c];
-                var geometry = tf.GetGlyphOutline(glyphIndex, em);
-                var advanceWidth = tf.AdvanceWidths[glyphIndex] * em;
-                var baseline = tf.Baseline * em;
-                var mini = geometry.Figures.ToString(x, y + baseline);
-                sb.AppendLine($"<path d='{mini}' fill='{color}' stroke='{color}' stroke-width='0' />");
-                x += advanceWidth;
+                try
+                {
+                    var glyphIndex = tf.CharacterToGlyphMap[c];
+                    var geometry = tf.GetGlyphOutline(glyphIndex, em);
+                    var advanceWidth = tf.AdvanceWidths[glyphIndex] * em;
+                    var baseline = tf.Baseline * em;
+                    var mini = geometry.Figures.ToString(x, y + baseline);
+                    sb.AppendLine($"<path d='{mini}' fill='{color}' stroke='{color}' stroke-width='0' />");
+                    x += advanceWidth;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error rendering character '{c}': {ex.Message}");
+                }
             }
 
             //渲染标点符号
@@ -64,11 +71,18 @@ namespace GlyphLoader.RenderLibrary
             x = width - length * em - (length - 1) * spaceX;
             for (var i = 0; i < length; i++)
             {
-                var glyphIndex = tf.CharacterToGlyphMap[s2[i]];
-                var geometry = tf.GetGlyphOutline(glyphIndex, em);
-                var baseline = tf.Baseline * em;
-                var mini = geometry.Figures.ToString(x + i * (em + spaceX), y + baseline);
-                sb.AppendLine($"<path d='{mini}' fill='{color}' stroke='{color}' stroke-width='0' />");
+                try
+                {
+                    var glyphIndex = tf.CharacterToGlyphMap[s2[i]];
+                    var geometry = tf.GetGlyphOutline(glyphIndex, em);
+                    var baseline = tf.Baseline * em;
+                    var mini = geometry.Figures.ToString(x + i * (em + spaceX), y + baseline);
+                    sb.AppendLine($"<path d='{mini}' fill='{color}' stroke='{color}' stroke-width='0' />");
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error rendering character '{s2[i]}': {ex.Message}");
+                }
             }
 
             sb.AppendLine("</svg>");
