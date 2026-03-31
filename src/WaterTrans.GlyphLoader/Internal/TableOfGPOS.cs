@@ -191,7 +191,14 @@ namespace WaterTrans.GlyphLoader.Internal
                     ushort classValue = reader.ReadUInt16();
                     for (ushort id = startGlyphId; id <= endGlyphId; id++)
                     {
-                        classGlyph.Add(id, classValue);
+                        try
+                        {
+                            classGlyph.Add(id, classValue);
+                        }
+                        catch (Exception ex)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"classGlyph.Add(id, classValue) 执行失败，异常：{ex.Message}");
+                        }
                     }
                 }
             }
